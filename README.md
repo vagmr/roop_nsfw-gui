@@ -1,4 +1,4 @@
-Take a video and replace the face in it with a face of your choice. You only need one image of the desired face. No dataset, no training.
+详细说明请参考 <https://github.com/s0md3v/roop/wiki，我只是用于学习目的>  
 
 You can watch some demos [here](https://drive.google.com/drive/folders/1KHv8n_rd3Lcr2v7jBq1yPSTWM554Gq8e).
 A Stable Diffusion extension is also available, [here](https://github.com/s0md3v/sd-webui-roop).
@@ -17,16 +17,6 @@ Users of this software are expected to use this software responsibly while abidi
 
 Roop uses a lot of third party libraries as well pre-trained models. The users should keep in mind that these third party components have their own license and terms.
 
-## How to install?
-
-### Basic
-
-It is more likely to work on your computer, but will be quite slow. Follow instructions for the basic installation [here](https://github.com/s0md3v/roop/wiki/1.-Installation).
-
-### Acceleration
-
-If you own a capable GPU and are prepared to address any software problems, you have the option to activate such acceleration, which offers significantly enhanced speed. Once you finished the basic installation, you can follow the instructions for the acceleration installation [here](https://github.com/s0md3v/roop/wiki/2.-Acceleration).
-
 ## How to use?
 
 ### UI
@@ -34,8 +24,6 @@ If you own a capable GPU and are prepared to address any software problems, you 
 Executing `python run.py` command will launch this window:
 
 ![gui-demo](gui-demo.png)
-
-Choose a face (image with desired face) and the target image/video (image/video in which you want to replace the face) and click on `Start`. Open file explorer and navigate to the directory you select your output to be in. You will find a directory named `<video_title>` where you can see the frames being swapped in realtime. Once the processing is done, it will create the output file. That's it.
 
 ## CLI
 
