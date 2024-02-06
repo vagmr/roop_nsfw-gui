@@ -1,0 +1,28 @@
+{
+    "en": {
+        "select_face": "Select a Face",
+        "select_target": "Select a Target",
+        "keep_fps": "Keep video FPS",
+        "keep_frames": "Keep Temporary",
+        "skip_audio": "Skip Target Audio",
+        "many_faces": "Process Every Face",
+        "face_enhancer": "Face Enhancer",
+        "start": "Start",
+        "destroy": "Destroy",
+        "preview": "Preview",
+        "language": "Now:English"
+    },
+    "zh": {
+        "select_face": "选择人脸",
+        "select_target": "选择目标",
+        "keep_fps": "保持视频帧率",
+        "keep_frames": "保存临时帧缓存",
+        "skip_audio": "跳过合并音频",
+        "many_faces": "处理每个人脸",
+        "face_enhancer": "人脸增强",
+        "start": "开始",
+        "destroy": "销毁",
+        "preview": "预览",
+        "language": "现:简体中文"
+    }
+}

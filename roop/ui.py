@@ -18,7 +18,11 @@ from roop.utilities import is_image, is_video, resolve_relative_path
 from string import ascii_uppercase, digits
 from random import choices, randint
 from datetime import datetime
+from json import load
 
+
+with open(resolve_relative_path('translations.json'), 'r', encoding='utf-8') as file:
+    translations = load(file)
 
 ROOT = None
 ROOT_HEIGHT = 700
@@ -64,11 +68,10 @@ def toggle_processor(value: bool):
         roop.globals.frame_processors.remove("face_enhancer")
         print(roop.globals.frame_processors)
         get_frame_processors_modules(roop.globals.frame_processors)
-    
+
 
 def create_root(start: Callable[[], None], destroy: Callable[[], None]) -> ctk.CTk:
     global source_label, target_label, status_label
-
     ctk.deactivate_automatic_dpi_awareness()
     ctk.set_appearance_mode('system')
     ctk.set_default_color_theme(resolve_relative_path('ui.json'))
@@ -100,33 +103,33 @@ def create_root(start: Callable[[], None], destroy: Callable[[], None]) -> ctk.C
     target_button.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.1)
 
     keep_fps_value = ctk.BooleanVar(value=roop.globals.keep_fps)
-    keep_fps_checkbox = ctk.CTkSwitch(root, text='保留原始帧率', variable=keep_fps_value, cursor='hand2', command=lambda: setattr(roop.globals, 'keep_fps', not roop.globals.keep_fps))
+    keep_fps_checkbox = ctk.CTkSwitch(root, text='Keep target fps', variable=keep_fps_value, cursor='hand2', command=lambda: setattr(roop.globals, 'keep_fps', not roop.globals.keep_fps))
     keep_fps_checkbox.place(relx=0.1, rely=0.6)
 
     keep_frames_value = ctk.BooleanVar(value=roop.globals.keep_frames)
-    keep_frames_switch = ctk.CTkSwitch(root, text='保留缓存帧', variable=keep_frames_value, cursor='hand2', command=lambda: setattr(roop.globals, 'keep_frames', keep_frames_value.get()))
+    keep_frames_switch = ctk.CTkSwitch(root, text='Keep temporary', variable=keep_frames_value, cursor='hand2', command=lambda: setattr(roop.globals, 'keep_frames', keep_frames_value.get()))
     keep_frames_switch.place(relx=0.1, rely=0.65)
 
     skip_audio_value = ctk.BooleanVar(value=roop.globals.skip_audio)
-    skip_audio_switch = ctk.CTkSwitch(root, text='跳过合并音频', variable=skip_audio_value, cursor='hand2', command=lambda: setattr(roop.globals, 'skip_audio', skip_audio_value.get()))
+    skip_audio_switch = ctk.CTkSwitch(root, text='Skip target audio', variable=skip_audio_value, cursor='hand2', command=lambda: setattr(roop.globals, 'skip_audio', skip_audio_value.get()))
     skip_audio_switch.place(relx=0.6, rely=0.6)
 
     many_faces_value = ctk.BooleanVar(value=roop.globals.many_faces)
-    many_faces_switch = ctk.CTkSwitch(root, text='多人脸', variable=many_faces_value, cursor='hand2', command=lambda: setattr(roop.globals, 'many_faces', many_faces_value.get()))
+    many_faces_switch = ctk.CTkSwitch(root, text='Many faces', variable=many_faces_value, cursor='hand2', command=lambda: setattr(roop.globals, 'many_faces', many_faces_value.get()))
     many_faces_switch.place(relx=0.6, rely=0.65)
     
     processor_value = ctk.BooleanVar(value = "face_enhancer" in roop.globals.frame_processors)
-    processor_switch = ctk.CTkSwitch(root, text='人脸增强', variable=processor_value, cursor='hand2', command=lambda: toggle_processor(processor_value.get()))
-    processor_switch.place(relx=0.4, rely=0.65)
+    processor_switch = ctk.CTkSwitch(root, text='Face enhancer', variable=processor_value, cursor='hand2', command=lambda: toggle_processor(processor_value.get()))
+    processor_switch.place(relx=0.38, rely=0.65)
     
     start_button = ctk.CTkButton(root, text='Start', cursor='hand2', command=lambda: select_output_path(start))
-    start_button.place(relx=0.15, rely=0.75, relwidth=0.2, relheight=0.05)
+    start_button.place(relx=0.1, rely=0.75, relwidth=0.2, relheight=0.05)
 
     stop_button = ctk.CTkButton(root, text='Destroy', cursor='hand2', command=lambda: destroy())
-    stop_button.place(relx=0.4, rely=0.75, relwidth=0.2, relheight=0.05)
+    stop_button.place(relx=0.35, rely=0.75, relwidth=0.2, relheight=0.05)
 
     preview_button = ctk.CTkButton(root, text='Preview', cursor='hand2', command=lambda: toggle_preview())
-    preview_button.place(relx=0.65, rely=0.75, relwidth=0.2, relheight=0.05)
+    preview_button.place(relx=0.6, rely=0.75, relwidth=0.2, relheight=0.05)
 
     status_label = ctk.CTkLabel(root, text=None, justify='center')
     status_label.place(relx=0.1, rely=0.9, relwidth=0.8)
@@ -135,7 +138,25 @@ def create_root(start: Callable[[], None], destroy: Callable[[], None]) -> ctk.C
     donate_label.place(relx=0.1, rely=0.95, relwidth=0.8)
     donate_label.configure(text_color=ctk.ThemeManager.theme.get('RoopDonate').get('text_color'))
     donate_label.bind('<Button>', lambda event: webbrowser.open('https://github.com/sponsors/s0md3v'))
-
+    language_value = ctk.BooleanVar(value=True)  # True for English, False for Chinese
+    language_switch = ctk.CTkSwitch(root, text='Toggle Language', variable=language_value, cursor='hand2',
+                                command=lambda: update_language('en' if language_value.get() else 'zh'))
+    language_switch.place(relx=0.38, rely=0.6, relwidth=0.2, relheight=0.05)
+    def update_language(lang):
+    # Assuming 'lang' is either 'en' or 'zh'
+        source_button.configure(text=translations[lang]['select_face'])
+        target_button.configure(text=translations[lang]['select_target'])
+        keep_fps_checkbox.configure(text=translations[lang]['keep_fps'])
+        keep_frames_switch.configure(text=translations[lang]['keep_frames'])
+        skip_audio_switch.configure(text=translations[lang]['skip_audio'])
+        many_faces_switch.configure(text=translations[lang]['many_faces'])
+        processor_switch.configure(text=translations[lang]['face_enhancer'])
+        start_button.configure(text=translations[lang]['start'])
+        stop_button.configure(text=translations[lang]['destroy'])
+        preview_button.configure(text=translations[lang]['preview'])
+        language_switch.configure(text=translations[lang]['language'])
+        ROOT.update_idletasks()
+      # Adjust the position accordingly
     return root
 
 
