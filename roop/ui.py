@@ -100,23 +100,23 @@ def create_root(start: Callable[[], None], destroy: Callable[[], None]) -> ctk.C
     target_button.place(relx=0.6, rely=0.4, relwidth=0.3, relheight=0.1)
 
     keep_fps_value = ctk.BooleanVar(value=roop.globals.keep_fps)
-    keep_fps_checkbox = ctk.CTkSwitch(root, text='Keep target fps', variable=keep_fps_value, cursor='hand2', command=lambda: setattr(roop.globals, 'keep_fps', not roop.globals.keep_fps))
+    keep_fps_checkbox = ctk.CTkSwitch(root, text='保留原始帧率', variable=keep_fps_value, cursor='hand2', command=lambda: setattr(roop.globals, 'keep_fps', not roop.globals.keep_fps))
     keep_fps_checkbox.place(relx=0.1, rely=0.6)
 
     keep_frames_value = ctk.BooleanVar(value=roop.globals.keep_frames)
-    keep_frames_switch = ctk.CTkSwitch(root, text='Keep temporary frames', variable=keep_frames_value, cursor='hand2', command=lambda: setattr(roop.globals, 'keep_frames', keep_frames_value.get()))
+    keep_frames_switch = ctk.CTkSwitch(root, text='保留缓存帧', variable=keep_frames_value, cursor='hand2', command=lambda: setattr(roop.globals, 'keep_frames', keep_frames_value.get()))
     keep_frames_switch.place(relx=0.1, rely=0.65)
 
     skip_audio_value = ctk.BooleanVar(value=roop.globals.skip_audio)
-    skip_audio_switch = ctk.CTkSwitch(root, text='Skip target audio', variable=skip_audio_value, cursor='hand2', command=lambda: setattr(roop.globals, 'skip_audio', skip_audio_value.get()))
+    skip_audio_switch = ctk.CTkSwitch(root, text='跳过合并音频', variable=skip_audio_value, cursor='hand2', command=lambda: setattr(roop.globals, 'skip_audio', skip_audio_value.get()))
     skip_audio_switch.place(relx=0.6, rely=0.6)
 
     many_faces_value = ctk.BooleanVar(value=roop.globals.many_faces)
-    many_faces_switch = ctk.CTkSwitch(root, text='Many faces', variable=many_faces_value, cursor='hand2', command=lambda: setattr(roop.globals, 'many_faces', many_faces_value.get()))
+    many_faces_switch = ctk.CTkSwitch(root, text='多人脸', variable=many_faces_value, cursor='hand2', command=lambda: setattr(roop.globals, 'many_faces', many_faces_value.get()))
     many_faces_switch.place(relx=0.6, rely=0.65)
     
     processor_value = ctk.BooleanVar(value = "face_enhancer" in roop.globals.frame_processors)
-    processor_switch = ctk.CTkSwitch(root, text='Face enhancer', variable=processor_value, cursor='hand2', command=lambda: toggle_processor(processor_value.get()))
+    processor_switch = ctk.CTkSwitch(root, text='人脸增强', variable=processor_value, cursor='hand2', command=lambda: toggle_processor(processor_value.get()))
     processor_switch.place(relx=0.4, rely=0.65)
     
     start_button = ctk.CTkButton(root, text='Start', cursor='hand2', command=lambda: select_output_path(start))
