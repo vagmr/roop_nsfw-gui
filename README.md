@@ -1,7 +1,6 @@
 详细说明请参考 <https://github.com/s0md3v/roop/wiki>，我只是用于学习目的
 
-You can watch some demos [here](https://drive.google.com/drive/folders/1KHv8n_rd3Lcr2v7jBq1yPSTWM554Gq8e).
-A Stable Diffusion extension is also available, [here](https://github.com/s0md3v/sd-webui-roop).
+安装
 
 ![demo-gif](demo.gif)
 
